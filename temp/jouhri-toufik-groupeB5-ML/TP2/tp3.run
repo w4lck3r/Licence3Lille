@@ -1,0 +1,9 @@
+# instruction passées à ampl
+
+model tp3.ampl; #chargement du modéle
+
+data tp3.data; #chargement des paramétres du modele
+
+solve;# résolution du probleme
+
+display qte.lb, qte, qte.ub; #affiche la solution trouvée

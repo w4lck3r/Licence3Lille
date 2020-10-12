@@ -1,0 +1,10 @@
+
+set PROD := bandes rouleaux; # l'ensemble des produits contient 2 éléments : bandes et rouleaux
+
+param heures_ouvrees := 40; #lusine est ouverte 40 Heures par semaine
+
+#déclaration des parametres qui dépendent des produits
+param:      vitesse_production  prix_vente  vente_max :=
+bandes       200                  25          6000    #vitesse_production[bandes],prix_vente[bandes],vente_max[bandes]
+rouleaux     140                  30          4000    #vitesse_production[rouleaux],prix_vente[rouleaux],vente_max[rouleaux]
+
