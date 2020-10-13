@@ -1,0 +1,9 @@
+# instruction passées à ampl
+
+model tp1.ampl; #chargement du modéle
+
+data tp1.data; #chargement des paramétres du modele
+
+solve;# résolution du probleme
+
+display qte_produite.lb, qte_produite, qte_produite.ub; #affiche la solution trouvée
