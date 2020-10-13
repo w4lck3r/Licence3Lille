@@ -17,6 +17,7 @@ somme [] = 0
 somme (x:xs) = x + somme(xs)
  
 -- Question 5 :
+
 last :: [a] -> a
 last (xs) = head(reverse((xs)))
 

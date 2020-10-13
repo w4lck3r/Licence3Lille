@@ -1,5 +1,4 @@
 -- Jouhri Toufik & Jarir yassine 
-
 import Graphics.Gloss
 
 type Symbole  = Char
@@ -25,7 +24,6 @@ motSuivant' r x = concatMap r x
 
 motSuivant'' :: Regles -> Mot -> Mot
 motSuivant'' r xs = [ res |  x <- xs,   res <-(r x)]
-
 
 -- Question 2 
 
@@ -72,10 +70,11 @@ filtreSymbolesTortue c xs = [x | x <- xs, x `elem` (symbolesTortue c) ]
 
 -- Question 8 --
 interpreteSymbole :: Config -> EtatDessin -> Symbole -> EtatDessin
-interpreteSymbole c (e@(point, _), p) 'F' = let e2 = (avance c e) in (e2, point:p++[(fst (e2))])
-interpreteSymbole c (e,p) '+' = let e2 = (tourneAGauche c e) in (e2, p)
-interpreteSymbole c (e,p) '-' = let e2 = (tourneADroite c e) in (e2, p)
-interpreteSymbole _ _ _ = error "wrong symbol"
+interpreteSymbole c (etat, path) s = (etat', path ++ [fst etat'])
+    where etat' | s == 'F'  = avance c etat
+                | s == '+'  = tourneAGauche c etat
+                | s == '-'  = tourneADroite c etat
+                | otherwise = error "wrong symbol"
 
 
 -- Question 9 --
