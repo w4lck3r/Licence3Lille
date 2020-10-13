@@ -2,9 +2,9 @@
 int main(int argc, char *argv[])
 {
     
-  /*
-  Declaration des variables
-  */
+  /**
+   * Declaration des variables
+   */
   struct stat sb; 
   char *fileName = NULL;
   fileName = argv[1];
