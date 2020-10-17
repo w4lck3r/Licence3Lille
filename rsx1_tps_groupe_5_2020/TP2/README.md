@@ -8,13 +8,8 @@ avec le localhost 127.0.0.1
 
 
 à l'aide des commandes suivantes par exemple: 
+dans le dossier src on ouvre le terminal 
 
-javac rsx/*.java -d ../classes
-jar cvfm ../rsx.jar ../manifest-sc rsx
-java -jar rsx.jar
-
-sinon 
-
- - `java ReceiveUDP 1500 `
- - `java SendUDP 127.0.0.1 1500 "you are welcome" `
+ - `java ReceiveUDP 1500`
+ - `java SendUDP 127.0.0.1 1500 "you are welcome"`
  ou entrer les arguments manuellement dans un IDE 
