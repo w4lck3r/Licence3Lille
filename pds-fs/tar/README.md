@@ -1,22 +1,14 @@
 #   Décodage du format `tar`
+# JOUHRI TOUFIK & YASSINE JARIR
 
-Ce répertoire correspond aux exercices de la section
-[Décodage du format `tar`](https://www.fil.univ-lille1.fr/~hym/e/pds/tp/tdfs1-cmd.html#tar).
-À la fin de votre travail, il devra donc contenir les fichiers
-suivants :
+## Recuperer le projet:
 
--   `lstar.c`,
--   `Makefile`,
--   éventuellement quelques (petits !) fichiers de test ; il est
-    encore mieux si vous arrivez à ajouter les règles nécessaires à la
-    génération de ces fichiers de test dans votre `Makefile` ou dans
-    un script `tests.sh`.
+`git@gitlab-etu.fil.univ-lille1.fr:jouhri/pds-fs.git`
 
-Vous éditerez ce fichier pour qu’il contienne un **compte-rendu du
-travail effectué**. Il devra notamment contenir une explication de ce
-que vous avez effectué comme tests.
+- les fichier de tests on été ajouter manuellement.
 
-Par ailleurs, vous ferez attention à **ignorer** (ne pas ajouter au
-dépôt) les fichiers compilés (`.o`, exécutable, etc.). Ajoutez tous
-vos exécutables au fichier `.gitignore` pour éviter les mauvaises
-manipulations.
+- executer la commande `make` pour compiler et la commande :
+` make clean` pour nettoyer le repertoire 
+
+- executer la commande ` ./lstar.out test.tar `  pour executer.
+ainsi que `tar -H ustar -c vide test | ./lstar `

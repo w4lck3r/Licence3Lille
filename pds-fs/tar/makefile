@@ -6,5 +6,5 @@ lstar.o: lstar.c lstar.h
 	gcc -c lstar.c
 arrondi.o: arrondi.c arrondi.h
 	gcc -c arrondi.c
-clear:
+clean:
 	rm *.o lstar.out
