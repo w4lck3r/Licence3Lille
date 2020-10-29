@@ -1,5 +1,6 @@
-#include<tah.h>
-#include<arrondi.h>
+#include"lstar.h"
+#include"arrondi.h"
+
 
 /*
     fd == 0 == STDIN_FILENO -> STANDARD INPUT
@@ -9,7 +10,6 @@
 
 int main(int argc, char *argv[]) {
     int fd;
-    struct posix_header hs;
 
     if (argc > 1 ) {
         fd = open(argv[1], O_RDONLY);
@@ -22,16 +22,17 @@ int main(int argc, char *argv[]) {
         // l'entrée standard de ./lstar si on passe dans le else
     }
 
+    struct posix_header hs;
 
     // boucle infini qui tourne tant que tout les fichiers n'ont pas été analysés
-    for (;;) {
+    while(1) {
        // lit un bloc de 512 octets qui correspond à la description d'un fichier
        read(fd, &hs, sizeof(hs));
 
        // retrouve la taille d'un fichier (octets) et détermine le nombre de blocs
        // de 512 octets qu'il remplit après le bloc de description
        long long file_size = strtoll(hs.size, NULL, 8);
-       int file_size_arrondie = arrondi512(file_size);
+       int file_size_arrondie = arrondi(file_size);
        int file_blocks_number = file_size_arrondie / BUFFER;
 
        // récupération de la version du fichier à utiliser pour vérifier que le fichier
@@ -75,10 +76,10 @@ int main(int argc, char *argv[]) {
         char buffer[DATE_BUFFER_SIZE]; //un buffer pour le stockage du format date à 12 octets
         time_t rawtime= strtol(hs.mtime,NULL, 8);
         info = localtime(&rawtime);
-        printf( "%s ", asctime(info)); // ou avec fonction strftime(buffer, DATE_BUFFER_SIZE, "%d/%m/%Y %H:%M:%S", info),mais il bug dans mon programme;
-
+        printf( "%s ", asctime(info));
         //recuperation et affichage du type de fichier
-        char flagTypeVal= hs.typeflag;
+       
+       char flagTypeVal= hs.typeflag;
 
        switch (flagTypeVal)
 	{
@@ -118,7 +119,7 @@ int main(int argc, char *argv[]) {
        // possède de blocs de données de 512 octets pour les passer sans les regarder
        int i;
        for(i = 0; i < file_blocks_number ; i++) {
-          read(fd, &hs, sizeof(hs));
+          lseek(fd, 0, SEEK_END);
        }
     }
 
