@@ -4,17 +4,19 @@ public class Competitor{
   private final String name;
   private int score;
 
+
   /* Constructor */
   public Competitor (String name){
 	this.score = 0;
 	this.name = name;
-  }
 
+  }
   /**
-   * add one score to a competitor
+   * add one score to a competitor.
    */
-  public void addScore(){
-    this.score += 1;
+  
+  public void addScore() {
+	  this.score += 1;
   }
 
   /******** getters *********/
@@ -36,10 +38,12 @@ public class Competitor{
   }
 
 
-  public String toString(){
+  public String toString2(){
     return (this.name +" > "+ this.score);
   }
-
+  public String toString3() {
+	  return (this.name);
+  }
   /**
    * two Competitors are "equals" if they have the same name and the same number of points
    * @param o a Competitor to compare of another (this)
