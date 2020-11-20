@@ -8,7 +8,8 @@ param prix_vente {PROD} >= 0; #prix de vente pour chaque produit
 
 param vente_max {PROD} >= 0; #nombre d'unités maximal que l'on peut vendre par produit
 
-param vente_min {PROD} >= 0; #nombre d'unités mini que l'on peut vendre
+
+param vente_min {PROD} >= 0;#nombre d'unités mini que l'on peut vendre
 
 #variables du problemes
 

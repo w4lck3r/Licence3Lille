@@ -1,0 +1,10 @@
+
+set MEDIA := Tv mag radio; #l'ensemble des media : Tv magazine radio
+
+param budget := 1000000; #budget fournis par la campagne
+
+#déclaration des parametres qui dépendent des medias:
+param: 		cout      audience    valeur_min      publicitaire :=
+Tv  	 	20000        1800000         10             1
+mag 		10000        1000000         0              3
+radio  		2000        250000           0              	1;

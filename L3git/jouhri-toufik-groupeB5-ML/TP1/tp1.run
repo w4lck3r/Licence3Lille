@@ -1,8 +1,8 @@
 # instruction passées à ampl
 
-model tp1.ampl; # chargement du modéle
+model tp1.ampl; #chargement du modéle
 
-data tp1.data; # chargement des paramétres du modele
+data tp1.data; #chargement des paramétres du modele
 
 solve;# résolution du probleme
 
