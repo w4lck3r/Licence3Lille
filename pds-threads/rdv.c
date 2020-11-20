@@ -5,7 +5,7 @@
 #include <semaphore.h>
 
 sem_t sem1, sem2;
-/* ss */
+/* ss hola */
 void a(int i) {
     sleep(1);
     printf("a%d\n", i);
