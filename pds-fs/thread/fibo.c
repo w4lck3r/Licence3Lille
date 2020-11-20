@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <assert.h>
 #include <stdlib.h>
-
+ /*toufik jouhri*/
 void *my_thread(void * arg);
 
 struct fonct_arg_s{
