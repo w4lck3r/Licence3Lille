@@ -5,7 +5,7 @@
 #include <semaphore.h>
 
 sem_t sem1, sem2;
-
+/* ss */
 void a(int i) {
     sleep(1);
     printf("a%d\n", i);
@@ -31,7 +31,7 @@ void *p2(void *arg) {
     assert(arg == NULL);
     a(2);
     assert(sem_post(&sem1) == 0);
-    assert(sem_wait(&sem2) == 0 );
+    assert(sem_wait(&sem2) == 0);
     b(2);
     return NULL;
 }
