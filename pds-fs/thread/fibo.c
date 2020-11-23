@@ -3,10 +3,12 @@
 #include <pthread.h>
 #include <assert.h>
 #include <stdlib.h>
-pthread_mutex_t globale_lock = PTHREAD_MUTEX_INITIALIZER;
-#define INCONNUE       -1
-static int fibtab [];
+#include<semaphore.h>
 
+#define INCONNUE       -1
+
+static int fibtab [];
+sem_t fib_sem;
 void *my_thread(void * arg);
 
 struct fonct_arg_s{
@@ -20,23 +22,28 @@ int fib(int n) {
     int res;
     if (n<2)
         return n;
-
-    else {
+    sem_wait(&fib_sem);
+    if(fibtab[n] == INCONNUE) {
         struct fonct_arg_s x,y;
+        
         x.n = n-1;
         y.n = n-2;
-     
+        
         pthread_t tid1,tid2;
+        
         pthread_create(&tid1, NULL, my_thread, (void*)&x);
         pthread_create(&tid2, NULL, my_thread, (void*)&y);
+        
         pthread_join(tid1, NULL);
-
         pthread_join(tid2, NULL);
-
-     
-        printf("fin de la fonction ici");
-        return x.ret + y.ret;
+        
+        fibtab[n] =  x.ret + y.ret;
+        
+        sem_post(&fib_sem);
+        
     }
+    return fibtab[n];
+
 }
 void *my_thread(void * arg){
 
@@ -49,9 +56,12 @@ void *my_thread(void * arg){
 
 int main(int argc, char *argv[]) {
     int n, res;
+    sem_init(&fib_sem,0,1);
+
     for (int i=0; i<n ;i++){
         fibtab[i] = INCONNUE;
     }
+    
     n = strtol(argv[1], NULL, 10); 
     res = fib(n);
     printf("fib(%d)=%d\n", n, res);
