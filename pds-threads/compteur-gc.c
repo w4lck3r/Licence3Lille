@@ -14,16 +14,6 @@ typedef struct compteur_s{
     unsigned long taille;
   } compteur_s;
 
-void usage()
-{
-  printf("Utilisation de compteur_gc\n\n");
-  printf("-h : affiche l'aide au programme\n");
-  printf("-v : Active le mode bavard (détails supplémentaires)\n");
-  printf("\n Exemples :\n");
-  printf("./compteur_gc [nom_fichier] [nombre_thread] \n");
-  printf("./compteur_gc -v [nom_fichier]\n\n");
-}
-
 unsigned long compteur_gc(char *bloc, unsigned long taille) {
     unsigned long i, cptr = 0;
 
@@ -66,25 +56,6 @@ int main(int argc, char *argv[]) {
 
     assert(argc > 1);
 
-
-    while ((ch = getopt(argc,argv,"vh")) != -1)
-    {
-      switch (ch)
-      {
-
-        case('h'):
-          usage();
-          exit(EXIT_SUCCESS);
-          break;
-
-        case('v'):
-          verbose=1;
-          break;
-
-        default:
-          break;
-      }
-    }
 
     argc-=optind;
     argv+=optind;

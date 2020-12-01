@@ -71,7 +71,7 @@ void displayStat(struct stat sb,char * fileName){
   printf(" Mode: %lo \n",(unsigned long) sb.st_mode);/*octal*/
   printf("  File: %s \n",fileName);
   printf("  Size: %lld ",(long long) sb.st_size);
-  printf("\tBlocks: %lld",(long long) sb.st_blocks);
+  printf("\t\tBlocks: %lld",(long long) sb.st_blocks);
   printf("\tIO Block: %ld ",(long) sb.st_blksize);
   /*
   affiche le type du fichier

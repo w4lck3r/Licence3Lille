@@ -7,22 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "main.h"
 #include "tri.h"
 
-void verifie_trie(base_t * tableau, pos_t taille) {
-    pos_t i;
-
-    if (opt_verbeux)
-        fprintf(stderr, "Vérification du tableau trié\n");
-
-    for (i = 0; i < taille - 1; i++)
-        if (tableau[i] > tableau[i + 1])
-            fprintf(stderr, "Erreur de tri à la position %d !\n", i);
-
-    if (opt_verbeux)
-        fprintf(stderr, "Vérification du tableau effectuée avec succès\n");
-}
 
 base_t *charge_tableau_binaire(char *fichier, long longueur) {
     int fd;

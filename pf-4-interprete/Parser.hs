@@ -1,4 +1,4 @@
--- TOufik |
+-- Toufik   Jouhri : Jarir Yassine
 -- Module      :  Parser
 --
 -- Bibliothèque simple d’analyseurs syntaxiques

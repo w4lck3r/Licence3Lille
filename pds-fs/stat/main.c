@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
    */
   struct stat sb; 
   char *fileName = NULL;
-  fileName = argv[1];
+  fileName = argv[1]; 
   /*
   si l'utilisateur entre plus/moins que 2 arguments
   */

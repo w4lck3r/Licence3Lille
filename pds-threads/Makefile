@@ -10,7 +10,7 @@ TOUS := aleazard compteur-gc tri-rapide
 
 tout: ${TOUS}
 
-tri-rapide: pile.o tri.o rapide.o main.o
+tri-rapide: pile.o tri.o rapide.o
 	${CC} ${LDFLAGS} -o $@ $^
 
 %.o: %.c
