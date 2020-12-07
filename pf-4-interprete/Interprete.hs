@@ -91,3 +91,169 @@ ras :: String -> Expression
 ras s =  case (runParser expressionP s) of
          Nothing -> error "Erreur d’analyse syntaxique"
          Just x -> fst x
+
+-- Question 13 --
+data ValeurA = VLitteralA Litteral
+            | VFonctionA (ValeurA -> ValeurA)
+
+
+-- Question 14 --
+instance Show ValeurA where
+    show (VFonctionA _) = "λ"
+    show (VLitteralA  (Entier x)) = show x
+    show (VLitteralA  (Bool x)) = show x
+
+type Environnement a = [(Nom, a)]
+
+-- Question 15 --
+interpreteA :: Environnement ValeurA -> Expression -> ValeurA
+interpreteA _ (Lit x) = VLitteralA x
+interpreteA env (Lam x v) = VFonctionA (\y -> interpreteA ((x,y):env) v)
+interpreteA env (Var x) = fromJust(lookup x env)
+interpreteA env (App x x') = f v
+                        where (VFonctionA f) = interpreteA env x
+                              v = interpreteA env x'
+
+-- Question 16 --
+negA :: ValeurA
+negA = VFonctionA lambda
+    where lambda (VLitteralA (Entier x)) = VLitteralA (Entier (-x))
+
+-- Question 17 --
+addA :: ValeurA
+addA = VFonctionA lambda
+      where lambda (VLitteralA (Entier x)) = VFonctionA lambda2
+              where lambda2 (VLitteralA (Entier y)) = VLitteralA (Entier (x + y))
+
+
+-- Question 18 --
+releveBinOpEntierA :: (Integer -> Integer -> Integer) -> ValeurA
+releveBinOpEntierA f = VFonctionA lambda
+      where lambda (VLitteralA (Entier x)) = VFonctionA lambda2
+              where lambda2 (VLitteralA (Entier y)) = VLitteralA (Entier (f x y))
+
+envA :: Environnement ValeurA
+envA = [ ("neg",   negA)
+       , ("add",   releveBinOpEntierA (+))
+       , ("soust", releveBinOpEntierA (-))
+       , ("mult",  releveBinOpEntierA (*))
+       , ("quot",  releveBinOpEntierA quot)
+       , ("if", ifthenelseA) ]
+
+-- Question 19 --
+ifthenelseA :: ValeurA
+ifthenelseA = VFonctionA lambda
+      where lambda (VLitteralA (Bool True)) = VFonctionA lambda2
+              where lambda2 (VLitteralA (Entier y)) = VFonctionA lambda3
+                        where lambda3 (VLitteralA (Entier (z))) = (VLitteralA (Entier (y)))
+            lambda (VLitteralA (Bool False)) = VFonctionA lambda4
+              where lambda4 (VLitteralA (Entier _)) = VFonctionA lambda5
+                        where lambda5 (VLitteralA (Entier y)) = VLitteralA (Entier (y))
+
+-- Question 20 --
+main :: IO ()
+main = do putStr "minilang> "
+          hFlush stdout
+          b <- isEOF
+          unless b $ do l <- getLine
+                        print (interpreteA envA (ras l))
+                        main
+
+data ValeurB = VLitteralB Litteral
+             | VFonctionB (ValeurB -> ErrValB)
+
+type MsgErreur = String
+type ErrValB   = Either MsgErreur ValeurB
+-- Question 21 --
+instance Show ValeurB where
+  show (VFonctionB _) = "λ"
+  show (VLitteralB  (Entier x)) = show x
+  show (VLitteralB  (Bool x)) = show x
+
+-- Question 22 --
+interpreteB :: Environnement ValeurB -> Expression -> ErrValB
+interpreteB _ (Lit x) = Right (VLitteralB x)
+interpreteB env (Lam x v) = Right (VFonctionB (\y -> interpreteB ((x,y):env) v))
+interpreteB env (Var x) = case lookup x env of
+                          Nothing -> Left ("la variable " ++ x ++ " n'est pas definie")
+                          y -> Right (fromJust y)
+interpreteB env (App x x') = case interpreteB env x of
+                                  m@(Left _) -> m
+                                  Right (VLitteralB (Entier v)) -> Left ((show v) ++ " n'est pas une fonction, application impossible")
+                                  Right (VLitteralB (Bool v)) -> Left ((show v) ++ " n'est pas une fonction, application impossible")
+                                  Right (VFonctionB f) -> case interpreteB env x' of
+                                                                  m@(Left _) -> m
+                                                                  (Right v) -> f v
+
+-- Question 23 --
+addB :: ValeurB
+addB = VFonctionB lambda
+      where lambda (VLitteralB (Entier x)) = Right (VFonctionB lambda2)
+              where lambda2 (VLitteralB (Entier y)) = Right (VLitteralB (Entier (x + y)))
+                    lambda2 e = Left (show e ++ " n'est pas un entier")
+            lambda e = Left (show e ++ " n'est pas un entier")
+
+-- Question 24 --
+quotB :: ValeurB
+quotB = VFonctionB lambda
+      where lambda (VLitteralB (Entier x)) = Right (VFonctionB lambda2)
+              where lambda2 (VLitteralB (Entier 0)) = Left "division par zero"
+                    lambda2 (VLitteralB (Entier y)) = Right (VLitteralB (Entier (x `quot` y)))
+                    lambda2 e = Left (show e ++ " n'est pas un entier")
+            lambda e = Left (show e ++ " n'est pas un entier")
+
+data ValeurC = VLitteralC Litteral
+             | VFonctionC (ValeurC -> OutValC)
+
+type Trace   = String
+type OutValC = (Trace, ValeurC)
+-- Question 25 --
+instance Show ValeurC where
+  show (VFonctionC _) = "λ"
+  show (VLitteralC  (Entier x)) = show x
+  show (VLitteralC  (Bool x)) = show x
+
+-- Question 26 --
+interpreteC :: Environnement ValeurC -> Expression -> OutValC
+interpreteC _ (Lit x) = ("", VLitteralC x)
+interpreteC env (Lam x v) = ("", VFonctionC (\y -> interpreteC ((x,y):env) v))
+interpreteC env (Var x) = ("", fromJust(lookup x env))
+interpreteC env (App x x') = (sx ++ sx' ++ "." ++ sv, v)
+                        where (sx, VFonctionC f) = interpreteC env x
+                              (sx', x2) = interpreteC env x'
+                              (sv, v) = f x2
+
+-- Question 27 --
+pingC :: ValeurC
+pingC = VFonctionC (\x -> ("p",x))
+
+data ValeurM m = VLitteralM Litteral
+               | VFonctionM (ValeurM m -> m (ValeurM m))
+-- Question 28 --
+instance Show (ValeurM m) where
+  show (VFonctionM _) = "λ"
+  show (VLitteralM  (Entier x)) = show x
+  show (VLitteralM  (Bool x)) = show x
+
+data SimpleM v = S v
+               deriving Show
+-- Question 29 --
+interpreteSimpleM :: Environnement (ValeurM SimpleM) -> Expression -> SimpleM (ValeurM SimpleM)
+interpreteSimpleM _ (Lit x) = S (VLitteralM x)
+interpreteSimpleM env (Lam x v) = S (VFonctionM (\y -> interpreteSimpleM ((x,y):env) v))
+interpreteSimpleM env (Var x) = S (fromJust(lookup x env))
+interpreteSimpleM env (App x x') = f v
+                        where S (VFonctionM f) = interpreteSimpleM env x
+                              S v = interpreteSimpleM env x'
+
+-- Question 30 --
+instance Functor SimpleM where
+    fmap = liftM
+
+instance Applicative SimpleM where
+    pure  = S
+    (<*>) = ap
+
+instance Monad SimpleM where
+    (S v) >>= f = f v
+

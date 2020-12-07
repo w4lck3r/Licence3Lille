@@ -1,0 +1,7 @@
+# instruction passées à ampl
+
+model Q1.ampl; #chargement du modéle
+data Q1.ampl;
+solve;# résolution du probleme
+
+display qte_magasin, qte_samedi, qte_min; #affiche la solution trouvée
