@@ -257,3 +257,77 @@ instance Applicative SimpleM where
 instance Monad SimpleM where
     (S v) >>= f = f v
 
+-- Question 31 --
+interpreteM :: Monad m => Environnement (ValeurM m) -> Expression -> m (ValeurM m)
+interpreteM _ (Lit x) = pure (VLitteralM x)
+interpreteM env (Lam x v) = pure (VFonctionM (\y -> interpreteM ((x,y):env) v))
+interpreteM env (Var x) = pure (fromJust(lookup x env))
+interpreteM env (App x x') = do (VFonctionM f) <- interpreteM env x
+                                v <- interpreteM env x'
+                                f v
+
+type InterpreteM m = Environnement (ValeurM m) -> Expression -> m (ValeurM m)
+
+interpreteS :: InterpreteM SimpleM
+interpreteS = interpreteM
+
+data TraceM v = T (Trace, v)
+              deriving Show
+-- Question 33 --
+instance Functor TraceM where
+    fmap = liftM
+
+instance Applicative TraceM where
+    pure x = T ("", x)
+    (<*>) = ap
+
+instance Monad TraceM where
+    (T(t,v)) >>= f = T(t ++ g, v')
+                      where T(g, v') = f v
+
+
+interpreteMT :: InterpreteM TraceM
+interpreteMT = interpreteM
+
+pingM :: ValeurM TraceM
+pingM = VFonctionM (\v -> T ("p", v))
+
+-- Question 34 --
+interpreteMT' :: InterpreteM TraceM
+interpreteMT' env (App x x') = T(sx ++ sx' ++ "." ++ sv, v)
+                        where T(sx, VFonctionM f) = interpreteMT' env x
+                              T(sx', x2) = interpreteMT' env x'
+                              T(sv, v) = f x2
+interpreteMT' env (Lam x v) = T("", VFonctionM (\y -> interpreteMT' ((x,y):env) v))
+interpreteMT' env x = interpreteMT env x
+
+data ErreurM v = Succes v
+               | Erreur String
+               deriving Show
+-- Question 35 --
+instance Functor ErreurM where
+    fmap = liftM
+
+instance Applicative ErreurM where
+    pure = Succes
+    (<*>) = ap
+
+instance Monad ErreurM where
+    fail = Erreur
+    Succes e >>= f = f e
+    Erreur e >>= _ = fail e
+
+-- Question 36 --
+interpreteE :: InterpreteM ErreurM
+interpreteE _ (Lit x) = Succes (VLitteralM x)
+interpreteE env (Lam x v) = Succes (VFonctionM (\y -> interpreteE ((x,y):env) v))
+interpreteE env (Var x) = case lookup x env of
+                          Nothing -> Erreur ("la variable " ++ x ++ " n'est pas definie")
+                          y -> Succes (fromJust y)
+interpreteE env (App x x') = case interpreteE env x of
+                                  m@(Erreur _) -> m
+                                  Succes (VLitteralM (Entier v)) -> Erreur ((show v) ++ " n'est pas une fonction, application impossible")
+                                  Succes (VLitteralM (Bool v)) -> Erreur ((show v) ++ " n'est pas une fonction, application impossible")
+                                  Succes (VFonctionM f) -> case interpreteE env x' of
+                                                                  m@(Erreur _) -> m
+                                                                  (Succes v) -> f v
