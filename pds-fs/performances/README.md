@@ -37,3 +37,16 @@ Le graphique sera dans `mcat.png`.
 
 graph
 ![Graph](mcat.png)
+
+# Partie 1
+
+À chaque appels système avec un buffer de plus grande taille le temps d'execution de cet appel est réduit
+jusqu'à atteindre à un moment donné *epsilon* (valeur rapprochée de 0)
+Car pour un buffer de 1 octet le nombre d'appel système est de 8 millions si on a un fichier de 8 MO,
+Alors dans mon code on augmente de 2 octets la taille du buffer à chaque itération ce qui provoque
+la reduction du temps d'execution des appels systèmes.
+
+# Partie 2
+
+L'utilisation des fonction fgetc et fputc améliore grandement la rapidité des appels système,puisque l'execution est instantané.
+Ce qui implique que dans notre cas d'etude le buffer fournit par défaut devrait être supérieur à 10485760 (10^6)
