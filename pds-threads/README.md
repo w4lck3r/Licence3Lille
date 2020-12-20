@@ -1,5 +1,8 @@
 #   Processus légers
 
+
+J'ai pas réussis à le faire jusqu'au bout. c'était difficile.
+
 # JOUHRI Toufik & Jarrir Yassine
 
  git clone git@gitlab-etu.fil.univ-lille1.fr:jouhri/pds-threads.git
