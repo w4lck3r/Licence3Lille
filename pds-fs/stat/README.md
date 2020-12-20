@@ -8,8 +8,9 @@ Ce répertoire correspond aux exercices de la section
                     -stat.h
                     -makefile
                     -test.txt
--pour lancer le code : ./main.out "nom_du_fichier".txt
-->Le code est commenté
+- Compiler : make.
+- pour lancer le code : ./main.out "nom_du_fichier".txt
+- >Le code est commenté
 ///////
 Exo6 : 
 /******************************************************************************/

@@ -1,3 +1,4 @@
+
 # Rapport pour le TP4 : Liaison de données
 
 
@@ -6,40 +7,50 @@
 1. Sur votre machine, quel est le nom de l’interface connectée au réseau de la salle de TP ? Quelle est son
 adresse IPv4 ? Quelle est son adresse IPv6 ? Quelle est son adresse MAC ?
 
-    ![Texte alternatif](https://wprock.fr/wp-content/uploads/2018/11/wprock-wallpaper-wapuu-wordpress-paris-520x254.jpg "Titre, facultatif")
-
+    ![image info](./eth0.png)
    l'interface est : eth0:
-   ipv 4 : 192.168.5.62
-   ipv 6 : fe80::e654::e8ff::fe59::6596/64
-   Ethernet : e4:54:e8:59:65:96
+   ipv 4 : 192.168.5.62                     /// couche reseaux
+   ipv 6 : fe80::e654::e8ff::fe59::6596/64  /// couche reseaux
+   Ethernet : e4:54:e8:59:65:96             /// couche de liaison
    
 
 2. Donnez les principales caractéristiques de cette interface : quelle est sa vitesse actuelle ? Est-ce la vitesse
 maximale supportée par l’interface ? Quel le mode de duplex ? Vérifiez que l’interface est bien
 connectée.
+        [![speed.png](./speed.png)]
+    Speed : 100 Mb/s
+    Duplex : Full
 
-    **Remplacez cette phrase avec votre réponse.**
 
 3. Quelle est la classe de l’adresse IPv4 ? Quel est son masque ? Quelle est l’adresse du réseau au format
 CIDR ? Quelle est l’adresse de broadcast ? Combien d’hôtes peut-on adresser sur ce réseau ? Cette
 adresse est-elle routable au sein d’un réseau local ? Est-elle routable sur internet ?
 
-    **Remplacez cette phrase avec votre réponse.**
+    - Classe c 
+    - son masque : 255.255.255.0 
+    - [IDR][I  , D  ,  M]\24
+    - Broadcast : 192.255.255.255
+    on peut adresser 256-2(cette machine incluse ) = 254 machines
+    routable : oui sur un reseau local , sur internet : non 
 
 4. Écrivez les 16 octets de l’adresse IPv6 sans abréviation. Écrivez en dessous les 16 octets du masque.
 Combien d’hôtes peut-on adresser sur ce réseau ? Cette adresse est-elle routable au sein d’un réseau
 local ? Est-elle routable sur internet ? Quelle est l’étendue (scope) de cette adresse ?
+                
+                {           IDR        } {         IDM          }
+                fe80:0000:0000:0000:0000:e654:e8ff:fe59:6596/64
 
-    **Remplacez cette phrase avec votre réponse.**
+    fe80/10 => ipv6 @localhost non routable sur internet
+                    
 
-   Affichez la table de routage. Quelle est l’adresse de la passerelle IP ?
+Affichez la table de routage. Quelle est l’adresse de la passerelle IP ?
 
-    **Remplacez cette phrase avec votre réponse.**
+  [![routage.png](./routage.png)]
 
 5. Avec Wireshark, lancez une capture de trames sur l’interface connectée au réseau de la salle de TP.
 Testez la connectivité IPv4 et IPv6 avec votre voisin.
 
-    **Remplacez cette phrase avec votre réponse.**
+   
 
 6. Arrêtez la capture . La transmission qui nous intéresse est noyée parmi d’autres trames qui nous
 parasitent.
@@ -98,13 +109,13 @@ baie de brassage.
 
 1. Vous utilisez un câble droit ou un câble croisé ?
 
-    **Remplacez cette phrase avec votre réponse.**
+    un cable croisé car c'est le même périphérique.
 
 2. Quelle commande utilisez-vous pour vérifier que votre interface est bien connectée, et connaître la vitesse
 et le mode de duplex qui ont été négociés entre vos deux machines ?
 
-    **Remplacez cette phrase avec votre réponse.**
-
+    ethtool.
+    ![ethtool.png](./ethtool.png)
 3. Affectez une adresse IPv4 privée de classe A à l’interface ethernet. Notez qu’une adresse IPv6 est déjà
 associée à cette interface. Elle a été configurée automatiquement.
 
@@ -114,11 +125,16 @@ associée à cette interface. Elle a été configurée automatiquement.
 
 4. Affichez la table de routage. Que constatez-vous ?
 
-    **Remplacez cette phrase avec votre réponse.**
+    cette ligne qui s'ajoute :
+    10.0.0.0/8 dev ens1  proto kernel  scope link  src 10.0.7.5 
+    
+     la meme interface peut contenir plusieur adresse ip
+     ![qst4pntpnt.png](./qst4pntpnt.png)
 
 5. Testez la connectivité avec votre voisin.
 
-    **Remplacez cette phrase avec votre réponse.**
+ - apres avoir ping mon voisin on a ceci : 
+ ![qst5pntpnt.png](./qst5pntpnt.png)
 
 ## Concentrateur (hub)
 
@@ -134,16 +150,16 @@ données émises par un poste sont-elles reçues par ce même poste ?
 
 2. Recommencez la manipulation en désactivant le mode promiscuous de wireshark. A quoi sert-il ?
 
-    **Remplacez cette phrase avec votre réponse.**
+    il sert à filtrer les trames qui ne sont pas adressés à mon adress ip
 
 3. Quel est le mode de duplex des interfaces connectées au hub ? Quelle en est la signification ?
-
-    **Remplacez cette phrase avec votre réponse.**
+ 
+    - Mode : Half duplex , signifie le canal de communication et que la communication se fait dans un sens ou un autre mais pas les deux en même temps
 
 4. Quelles sont les topologies physique et logique du réseau constitué par le concentrateur et les postes qui y
 sont connectés ?
 
-    **Remplacez cette phrase avec votre réponse.**
+ en bus logique et en étoile physique .
 
 5. Lancez la commande « iperf -s » sur un poste et « iperf -c ip_du_serveur » sur un autre poste pour lancer
 un test de bande passante. Notez le débit atteint et les valeurs du compteur de collisions (voir annexe)
@@ -152,10 +168,12 @@ Connectez un poste supplémentaire sur le hub (soit au minimum 4 postes) et réa
 en parallèle sur les deux paires de postes.
 Notez le débit atteint et les nouvelles valeurs des compteurs de collisions. Déduisez-en la manière dont
 fonctionne un hub.
+la premiere manip on a :
 
-    **Remplacez cette phrase avec votre réponse.**
-
-   Les postes connectés entre eux via des concentrateurs forment un **domaine de collision**.
+![collision1.png](./Collision1.png)
+![collision2.png](./Collision2.png)
+ apres avoir fait la deuxieme manipulation : on a remarqué que pour le nombre de collision avant et aprés la manipulation on se repartie le nombre de collision a peu pres sur 4 et la bande se reduit considérablement 
+ Les postes connectés entre eux via des concentrateurs forment un domaine de collision.
 
 
 ## Commutateur (switch)
@@ -168,27 +186,24 @@ Réactivez le mode promiscuous.
 1. Lancez une capture de trames sur un poste, et transmettez un ping entre les deux autres postes. Que
 constatez-vous ? Déduisez-en la manière dont les données sont transmises par cet équipement.
 
-    **Remplacez cette phrase avec votre réponse.**
+    On remarque que le poste avec lequel on a lancé la capture de trames ne recevait pas les trames des autres postes qui se ping entre eux.
+
+    l'équipement transmet les données d'une maniére unique de l'adresse source à l'adresse dest sans partager la donnée sur tout le réseau
 
 2. Quel est le mode de duplex des interfaces connectées au hub ? Quelle en est la signification ?
 
-    **Remplacez cette phrase avec votre réponse.**
-
+-   C'est du FULL DUPLEX , ça signifie que la communication se fait dans les deux sens.
 3. Quelles sont les topologies physique et logique du réseau constitué par le concentrateur et les postes qui y
 sont connectés ?
 
-    **Remplacez cette phrase avec votre réponse.**
+la topologie physique et logique toutes les deux sont en Étoile.
 
 4. Lancez la commande « iperf -s » sur un poste et « iperf -c ip_du_serveur » sur un autre poste pour lancer
-un test de bande passante. Notez le débit atteint et les valeurs du compteur de collisions (voir annexe)
-avant et après la manipulation.
+un test de bande passante. Notez le débit atteint et les valeurs du compteur de collisions avant et après la manipulation.
 Connectez un poste supplémentaire sur le switch (soit au minimum 4 postes) et réalisez de nouveau la
 manip en parallèle sur les deux paires de postes.
 Notez le débit atteint et les nouvelles valeurs des compteurs de collisions. Déduisez-en la manière dont
 fonctionne un switch.
-
-    **Remplacez cette phrase avec votre réponse.**
-
     Pour paramétrer les équipements réseau et obtenir des informations sur leur configuration, il faut établir une
 liaison série entre votre poste de travail et le port console de l'équipement en question.
 Cette liaison permet d'établir une connexion dite « hors bande », c'est-à-dire en dehors de la bande passante

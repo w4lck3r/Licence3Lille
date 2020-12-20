@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     appel de stat() pour recuperer
     les metadonnee
     */
-    stat(argv[1],&sb);
-    if (stat(argv[1], &sb) == -1)
+    lstat(argv[1],&sb);
+    if (lstat(argv[1], &sb) == -1)
     {
       perror("stat");
       return 0;
