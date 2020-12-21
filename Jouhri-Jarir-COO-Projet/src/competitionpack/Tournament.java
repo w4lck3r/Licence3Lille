@@ -2,6 +2,7 @@ package competitionpack;
 
 import java.util.*;
 
+
 public class Tournament extends Competition {
 
   /* Constructor */
@@ -78,5 +79,15 @@ public class Tournament extends Competition {
     catch (NbOfCompetitorIncorrect e){
       return e.toString();
     }
+  }
+  
+  /**
+   * Journalist's commentary about the result of the tournament
+   */
+  public void journalistCommentary() {
+    Map<Competitor,Integer> res = this.ranking();
+    System.out.println("\n<<<<<<< Media >>>>>>>");
+    for (Map.Entry<Competitor,Integer> entry : res.entrySet())  
+      System.out.println(entry.getKey().toString2());
   }
 }

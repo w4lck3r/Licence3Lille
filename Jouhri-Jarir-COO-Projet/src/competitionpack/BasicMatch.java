@@ -27,10 +27,14 @@ public class BasicMatch extends Match{
     // Always one winner
     if (n==0) {
       c1.addScore();
+      c1.minusCote();
+      c2.plusCote();
       return c1;
     }
     else {
       c2.addScore();
+      c2.minusCote();
+      c1.plusCote();
       return c2;
     }
   }

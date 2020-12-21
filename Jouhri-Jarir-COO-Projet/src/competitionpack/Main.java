@@ -2,6 +2,8 @@ package competitionpack;
 
 import java.util.*;
 
+
+
 public class Main{
     public static void main(String[] args) {
     	/* Creation a list of competitor for a league */
@@ -101,6 +103,8 @@ public class Main{
         	System.out.println("You need atleast six competitors to start a Master competition.");
         }
         master.getSelection().makeFinalPhase(pool.getPoolList());      
-        master.play();        
+        master.play();   
+
+        
     }
 }

@@ -2,7 +2,11 @@ package competitionpack;
 
 import java.util.*;
 
+
+
+
 public class Master extends Competition{
+	protected Pool pools ;
 	protected SelectionStrategy selection;
 	
 	/* Contructor */ 
@@ -11,6 +15,13 @@ public class Master extends Competition{
 		this.selection=selection;
 	}
 	
+	/**
+	 * return Pools of the Master
+	 * @return the Pool of the master
+	 */
+	public Pool getPools() {
+		return this.pools;
+	}
 	/**
 	 * return the selection of Master
 	 * @return master's selection
@@ -40,7 +51,7 @@ public class Master extends Competition{
 		catch (LackOfCompetitors e) {
 		
 		}
-		
+		this.pools = phaseOne;
 		finalPhaseCompetitors = this.getSelection().makeFinalPhase(phaseOne.getPoolList());
 		Tournament finalTournament = new Tournament(finalPhaseCompetitors,this.match);
 		commentary = commentary + "\n<<<<<<<< Final Phase : >>>>>>>>\n\n" + finalTournament.play(finalPhaseCompetitors);
@@ -48,6 +59,12 @@ public class Master extends Competition{
 		return commentary;
 	}
 	
+	   /**
+	   * Journalist's commentary about the result of the master.
+	   */
+		public void journalistCommentary() {
+			/*TODO*/
+		}
 	
 
 }

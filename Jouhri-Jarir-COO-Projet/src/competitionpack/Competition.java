@@ -1,18 +1,46 @@
 package competitionpack;
 import java.util.*;
+import competitionpack.*;
+
 
 
 public abstract class Competition{
 
   protected final ArrayList<Competitor> competitors;
   protected final Match match;
+  private Collection<CompListener> listenerList = new HashSet<CompListener>();
 
    /* Constructor */
   public Competition(ArrayList<Competitor> competitors, Match match){
 	this.match = match;
 	this.competitors = competitors;
+	
   }
+  
+  /**
+   * add the listener to the list
+   * @param x the listener to add to the list
+   */
+  public void addListener(CompListener x) {
+		listenerList.add(x);		
+	}
+  
+  /**
+   * delete the listener from the list
+   * @param x the listener targeted to get deleted
+   */
+	public void removeListener(CompListener x) {
+		listenerList.remove(x);
+	}
 
+  /**
+   * starts event of listeners in the list 
+   */
+	public void endCompetitionDetected() {
+		for (CompListener competitionObserver : listenerList) {
+			competitionObserver.competitionEvent(this);
+		}
+  }
   /**
    * returns the number of competitors in the competition
    * @return size of the competitor's list
@@ -70,6 +98,7 @@ public abstract class Competition{
    * @return commentary and details about the played match
    */
   public abstract String play(ArrayList<Competitor> competitors);
+  public abstract void journalistCommentary();
 
   /**
    * return the score of competitors from the highest to the lowest

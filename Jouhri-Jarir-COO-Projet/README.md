@@ -4,10 +4,7 @@
 
 # Objectifs :
 
-La deuxième partie du project consiste à créer un nouveau type de compétition qui s'appelle Master , la particularité de cette classe c'est qu'il faut utiliser un design pattern pour nous faciliter sa réalisation. 
-master est type de compétition où les participants s'affrontent en deux phase . la primaire phase consiste à diviser les participants en plusieurs groupes  et faire jouer chaque groupe une compétition League (vu dans la V1 du projet)
-puis pour la deuxième phase qui est la phase finale seuls les premiers ou les deux premièrs de chaque groupe garantissent leur place à la phase finale, ça se peut que les deuxièmes ou troisièmes gagnant de chaque groupe y participent 
-si il manque des participants pour commencer la phase final vu que c'est un tournois à élimination directe donc il faut avoir deux à la puissance n de competiteur.
+La troisième partie consiste à créer un système de cote et la diffusion du résultat de la compétition , pour cela on avait pensé à utiliser le design pattern Observer. 
 
 
 ## Howto :
@@ -65,8 +62,17 @@ V2:
 2/ avoir un nombre de competiteur supérieur à 6 et pas de condition sur le nombre pair . la méthode makePools de la classe Pool s'adaptera en fonction du nombre de compétiteurs donné.
 
 3/ création de la classe fillNumberToPowerOfTwo qui permet de rajouter des joueurs à la liste des compétiteurs qui joueront à la phase final pour atteindre un nombre 2^n (si nécessaire)
+
+V3:
+1/ l'augmentation et la diminution de la cote d'un participant en fonction du résultat de son match joué.
+
+2/ Possibilité de set une cote à un participant (dans le cas ou le participant préserve sa cote pour une autre compétition)
+
+problème rencontré :
+
+on avait planifié un peu la modélisation du design pattern , mais on a eu assez de temps que pour coder la partie citée précédement et débuter sur le codage de la classe Journalist / CompListener / puis la méthode journalistCommentary dans la
+class Competition qui nous permet d'avoir le résultat de chaque compétition qu'on a pas pu finir malheureusement par manque de temps
 ### UML :
 
-![socketUDP](UMLclasse.JPG)
+![socketUDP](UMLclasse.png)
 
-### PROJET V3 TOUJOURS NON FINIS 
