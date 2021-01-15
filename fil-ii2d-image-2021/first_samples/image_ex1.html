@@ -1,0 +1,41 @@
+<html>
+  <body>
+    <img id="input" src="../data/tambour.png" width="240" height="320"/>
+    <script type="text/javascript">
+
+      //BLOC1
+      //on creer l'image copie 
+      var imgElt = document.getElementById("input");
+
+      //BLOC2
+      //on creer un canevas définis par la largeur/hauteur de l'image.
+      var canvas = document.createElement("canvas");
+      canvas.width = imgElt.width; canvas.height = imgElt.height;
+      //document.body.append(canvas);
+
+      //BLOC3
+      // on recupere le contexte graphique et on dessine 
+      var ctx2d = canvas.getContext("2d");
+      ctx2d.drawImage(imgElt, 0, 0, canvas.width, canvas.height);
+
+
+      //BLOC4
+      //on récupere les data de l'image
+      var imgData = ctx2d.getImageData(0, 0, canvas.width, canvas.height);
+      var pixels = imgData.data;
+
+      //BLOC5
+      //affichage des position de pixels et les cordonnées de RGBA dans une boite de dialogue Pixel at (50, 50) : (0, 0, 0, 0)
+      // ca n'affiche rien parceque on fait le traitement sur l'image qui n'est toujours pas chargé
+      var x = 50; var y = 50;
+      var pos_pixel_dans_vector = (y * imgData.width + x)<<2;
+      var r = pixels[pos_pixel_dans_vector + 0];
+      var g = pixels[pos_pixel_dans_vector + 1];
+      var b = pixels[pos_pixel_dans_vector + 2];
+      var a = pixels[pos_pixel_dans_vector + 3];
+
+      alert("Pixel at ("+x+", "+y+") : ("+r+", "+g+", "+b+", "+a+")");
+
+      </script>
+    </body>
+  </html>
