@@ -17,7 +17,7 @@
 
         //BLOC3
         //on recupere le contexte graphique et on dessine l'image et on insere le canevas dans l'html
-        
+        // document.body.append(canvas); permet d'ajouter le canvas sur le sur l'html pour l'afficher 
         var ctx2d = canvas.getContext("2d");
         ctx2d.drawImage(imgElt, 0, 0, canvas.width, canvas.height);
         document.body.append(canvas);
@@ -31,8 +31,8 @@
         //BLOC5
         //parcours du canevas et traitements des pixels 
         //et générer une image avec couleur grise 
-        //ça ne donne pas le resultat attendu car on recupere l'image puis 
-       //on fait le traitement alors que l'image n'est toujours pas chargé
+        //ça nous donne le resultat attendu car on recupere l'image chargé puis 
+       //on fait le traitement dans la fonction function()
         for (var x = 0; x <imgData.width ; x++)
           for (var y = 0; y<imgData.height; y++) {
             var pos = (y * imgData.width + x)<<2;

@@ -16,4 +16,25 @@ GetPixelRGBATask.prototype.process=function(imageData) {
   this.output.innerHTML+="<font color='green'>"+g+"</font> | ";
   this.output.innerHTML+="<font color='blue'>"+b+"</font> | ";
   this.output.innerHTML+="<font color='gray'>"+a+"</font>";
+  
+  return [r,g,b,a];
+}
+
+etMeanPixelRGBATask=function(opt_options) {
+  if (opt_options && opt_option.output_id)
+    this.output=document.getElementById(opt_options.output_id);
+}
+
+GetMeanPixelRGBATask.prototype.process=function(imageData) {
+    if (imageData.width==0)
+      return;
+
+    var mean=pixels_features.computeRGBMeanPixel(imageData);
+    if (this.output) {
+      this.output.style="background-color:rgb("+mean[0]+","+mean[1]+","+mean[2]+")";
+      this.output.innerHTML="{r:"+mean[0]+";";
+      this.output.innerHTML+="g:"+mean[1]+";";
+      this.output.innerHTML+="b:"+mean[2]+"}";
+    }
+    return mean;
 }

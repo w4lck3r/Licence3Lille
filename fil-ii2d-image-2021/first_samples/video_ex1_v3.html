@@ -6,11 +6,13 @@
     <script type="text/javascript">
 
       //BLOC1
-      //.....
+      //creer une video element on ajoute un evenement 'playing' sur la video
+      // pour executer function() quand la video est lancé
       var videoElt = document.getElementById("input");
 
       //BLOC2
-      //.....
+      ////creer un canevas définis par la largeur/hauteur de la video.
+        //redessiner la trame dans le canvas
       var canvas = document.getElementById("output");
       var ctx2d = canvas.getContext("2d");
 
@@ -19,12 +21,17 @@
         ctx2d.drawImage(videoElt, 0, 0, canvas.width, canvas.height);
 
         //BLOC3
-        //.....
+        //récuperer les donnés d'image
         var imgData = ctx2d.getImageData(canvas.width/4, canvas.height/4, canvas.width/2, canvas.height/2);
         var pixels = imgData.data;
 
         //BLOC4
-        //.....
+        //parcourir les pixels et les traiter pour avoir 
+        //un effet gris sur la video
+        // générer un affichage de sortie 
+        // acceder et modifier la representation RGBA puis la recopier sur le canvas 
+        //avec l'utilisation d'une recursivite
+        // jusqu'a avoir toute les images en asynchrome 
         for (var x = 0; x <imgData.width ; x++)
           for (var y = 0; y<imgData.height; y++) {
 
