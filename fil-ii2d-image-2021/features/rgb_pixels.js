@@ -15,13 +15,13 @@ rgb_pixels_features.mean_per_region=function(imageData,opt_options) {
 
 
   //BLOC1
-  //....
+  //on parcours les pixels visibles et on retroune leurs moyenne 
   var mean=[];
   mean[0]=0; mean[1]=0; mean[2]=0;
   var pos=0; var count=0;
   for (var y=y0;y<y0+dy;y++)
     for (var x=x0;x<x0+dx;x++) {
-      pos=(y*imageData.width+x)<<2;
+      pos=(y*imageData.width+x)<<2;// décalage binaire de 2 ( * 2 )
       if (imageData.data[pos+3]>0) {
         for (var i=0;i<3;i++) {
           mean[i]+=imageData.data[pos+i];

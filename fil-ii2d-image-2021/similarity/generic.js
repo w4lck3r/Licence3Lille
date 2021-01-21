@@ -27,7 +27,9 @@ generic_similarity.SimilarityTask=function(dataset, descriptor_func,similarity_m
   console.log("descriptor opt options : "+opt_options.desc_opt_options);
 
   //BLOC1
-  //....
+
+  //stocker les data de descripteur dans un tableau.
+
   this.dataset_descriptors=[];
   for (var idx in this.dataset.imageDatas) {
     this.dataset_descriptors[idx]=
@@ -44,7 +46,8 @@ generic_similarity.SimilarityTask.prototype.process_descriptor=function(in_descr
 {
 
   //BLOC2
-  //.....
+  // 
+
   var sim=[],order=[];
   for (var idx in this.dataset_descriptors) {
     sim[idx]=this.similarity_metric_func(
@@ -53,7 +56,7 @@ generic_similarity.SimilarityTask.prototype.process_descriptor=function(in_descr
   }
 
   //BLOC3
-  //....
+  //
   for (var idx1 in order)
     for (var idx2 in order)
       if (sim[order[idx1]]<sim[order[idx2]])
