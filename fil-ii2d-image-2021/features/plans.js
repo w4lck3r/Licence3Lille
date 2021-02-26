@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 DetectionPlans =function(opt_options) {
+=======
+DetectionPlans=function(opt_options) {
+>>>>>>> b906e9129f4ea49935f7d6e029c876382e8fc9c7
   this.old_red = 0;
   this.old_green = 0;
   this.old_blue = 0;

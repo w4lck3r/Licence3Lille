@@ -199,6 +199,7 @@ ToGrayExceptDistancePointXYMoveTask.prototype.process = function (imageData) {
   }
 }
 
+<<<<<<< HEAD
 MagnificationToMoveTask = function (opt_options) {
   this.dist = opt_options.dist;
   this.x =this.dist + Math.min(Math.max(0 ,  Math.round(Math.random()*image.width-2) - 5),opt_options.image.width - 10);
@@ -239,3 +240,38 @@ MagnificationToMoveTask.prototype.process = function (imageData) {
     this.y += this.moveY;
   }
 };
+=======
+RandomPartialGrayTask.prototype.random_focus=function() {
+    this.reg_y=Math.trunc(Math.random()*(this.cvs_h-this.reg_h));
+    this.reg_x=Math.trunc(Math.random()*(this.cvs_w-this.reg_w));
+}
+
+ToGrayIfRInfGorBTask=function(opt_options) {}
+
+ToGrayIfRInfGorBTask.prototype.process=function(imageData) {
+  var pixels=imageData.data;
+  var w=0;
+  for (var i = 0; i < imageData.height; i++)
+      for (var j = 0; j < imageData.width; j++) {
+        if(pixels[w]<pixels[w+1] || pixels[w]<pixels[w+2]){
+          var mean=(pixels[w]+pixels[w+1]+pixels[w+2])/3;
+          pixels[w]=mean; pixels[w+1]=mean; pixels[w+2]=mean;
+        }
+        w+=4;
+      }
+}
+
+ToGrayDiffWTask=function(opt_options) {
+}
+
+ToGrayDiffWTask.prototype.process=function(imageData) {
+  var pixels=imageData.data;
+  var w=0;
+  for (var i = 0; i < imageData.height; i++)
+      for (var j = 0; j < imageData.width; j++) {
+        var mean=(pixels[w]*((0.2+Math.random()*0.25))+(pixels[w+1]*(0.2+Math.random()*0.25))+(pixels[w+2]*1 - (0.2+Math.random()*0.25) - (0.2+Math.random()*0.25)));
+        pixels[w]=mean; pixels[w+1]=mean; pixels[w+2]=mean;
+        w+=4;
+      }
+}
+>>>>>>> b906e9129f4ea49935f7d6e029c876382e8fc9c7

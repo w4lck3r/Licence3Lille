@@ -29,6 +29,7 @@ Le test de la fonction demandée est utilisé dans processing_samples/image_get_
 Le test de la fonction demandée est utilisé dans processing_samples/image_video.html.
 
 --Q13:
+<<<<<<< HEAD
 Question faite : regarder samples/tp1Q13.html
 et features/plan.js
 
@@ -39,3 +40,8 @@ Question faite : voir processing_samples/video_bandw.html
 Question faite :  voir processing_samples/TP1_Q15.html
 
 --Q16: 
+=======
+Pas faite
+
+--Q14:
+>>>>>>> b906e9129f4ea49935f7d6e029c876382e8fc9c7
