@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <script lang="js" src="../tools.js"></script>
+    <script lang="js" src="../filters/gray_filters.js"></script>
+    <script lang="js" src="../processing.js"></script>
+</head>
+
+<body>
+    <img src="../data/tambour.png" id="input" height="240" width="240"></img>
+    <canvas id="output" height="240" width="240"></canvas>
+
+    <script lang="javascript">
+        var _opt_options = {};
+        var _task = new ToGrayIfRInfGorBTask(_opt_options);
+        var _proc = new processing("input", _task, "output");
+        var loop = function () {
+            _proc.do_process();
+            requestAnimationFrame(loop);
+        }
+        loop();
+    </script>
+</body>
+
+</html>

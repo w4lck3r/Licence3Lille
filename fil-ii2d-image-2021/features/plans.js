@@ -1,11 +1,11 @@
-DetectionPlansTask=function(opt_options) {
+DetectionPlans =function(opt_options) {
   this.old_red = 0;
   this.old_green = 0;
   this.old_blue = 0;
   this.seuil = opt_options.seuil;
 }
 
-DetectionPlansTask.prototype.process=function(imageData) {
+DetectionPlans.prototype.process=function(imageData) {
   var pixels = imageData.data;
   var moyR = 0;
   var moyG = 0;

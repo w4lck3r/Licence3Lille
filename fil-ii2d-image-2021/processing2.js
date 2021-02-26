@@ -1,7 +1,6 @@
 /*
   Same behaviour as processing.js, but allows to work also only on parts of an image
 */
-
 var processing2=function(elementId,task,outputCanvasId,opt_options) {
 
 
@@ -12,15 +11,16 @@ var processing2=function(elementId,task,outputCanvasId,opt_options) {
   this.in_imageData = {};
   this.out_imageData = {};
 
-  this.processing_canvas=document.createElement('canvas');
-  this.processing_canvas.width = this.width;
-  this.processing_canvas.height = this.height;
+  if (this.element.nodeName.toLowerCase()!="canvas") {
+    this.processing_canvas=document.createElement('canvas');
+    this.processing_canvas.width = this.width;
+    this.processing_canvas.height = this.height;
+  } else {
+    this.processing_canvas=this.element;
+  }
 
   this.processing_context=this.processing_canvas.getContext("2d");
-
   this.task=task;
-
-
 
   if (opt_options && opt_options.in_region)
     this.in_region=opt_options.in_region
@@ -50,13 +50,14 @@ processing2.prototype.acquire_data_from_video=function() {
 }
 
 processing2.prototype.acquire_data_from_canvas=function() {
-  this.processing_context.drawImage(this.element,0,0,this.width,this.height);
   this.in_imageData = this.processing_context.getImageData(this.in_region.x, this.in_region.y, this.in_region.width, this.in_region.height);
 }
 
 processing2.prototype.acquire_data=function() {
-  if (this.output_canvas)
+  if (this.output_canvas) {
     this.out_imageData=this.output_context.getImageData(this.out_region.x,this.out_region.y,this.out_region.width,this.out_region.height);
+    this.out_imageData.ctxt=this.output_context;
+  }
 
   switch (this.element.nodeName.toLowerCase()) {
       case 'canvas':
@@ -68,6 +69,7 @@ processing2.prototype.acquire_data=function() {
       default:
         throw new Error('Element not supported!');
     }
+    this.in_imageData.ctxt = this.processing_context;
 }
 
 processing2.prototype.do_process=function() {

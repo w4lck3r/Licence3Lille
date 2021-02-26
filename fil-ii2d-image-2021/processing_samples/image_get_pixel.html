@@ -8,14 +8,23 @@
   <img autoplay loop src="../data/tambour.png" id="input" height="240" width="240"></img>
   <br></br>
   <div id="output"></div>
+  <canvas id="canvas_output" height="240" width="240"></canvas>
+  <div id="output2"></div>
 
   <script lang="javascript">
     var _output=document.getElementById("output");
     var _opt_options={x:100,y:100,output:_output};
     var _task=new GetPixelRGBATask(_opt_options)
     var _proc=new processing("input",_task);
+
+    _output = document.getElementById("output2");
+    _opt_options = { x: 100, y: 100, output: _output };
+    var _randomTask=new GetRandomRGBAPixel(_opt_options)
+    var _randomProc=new processing("input",_randomTask);
+
     var loop=function() {
       _proc.do_process();
+      _randomProc.do_process();
       requestAnimationFrame(loop);
     }
     loop();

@@ -4,34 +4,34 @@
     <script type="text/javascript">
 
       //BLOC1
-      //on creer une image et quand l'image est charge on execute function()
+      //on cree une image et quand l'image est charge on execute function()
       var imgElt = document.getElementById("input");
 
       imgElt.onload=function(){
 
         //BLOC2
-        
-        //on creer un canevas définis par la largeur/hauteur de l'image.
+
+        //on cree un canvas définis par la largeur/hauteur de l'image.
         var canvas = document.createElement("canvas");
         canvas.width = imgElt.width; canvas.height = imgElt.height;
 
         //BLOC3
         //on recupere le contexte graphique et on dessine l'image et on insere le canevas dans l'html
-        // document.body.append(canvas); permet d'ajouter le canvas sur le sur l'html pour l'afficher 
+        // document.body.append(canvas); permet d'ajouter le canvas sur le sur l'html pour l'afficher
         var ctx2d = canvas.getContext("2d");
         ctx2d.drawImage(imgElt, 0, 0, canvas.width, canvas.height);
         document.body.append(canvas);
-        
+
         //BLOC4
         //on récupere les data de l'image
-        
+
         var imgData = ctx2d.getImageData(0, 0, canvas.width/2, canvas.height/2);
         var pixels = imgData.data;
 
         //BLOC5
-        //parcours du canevas et traitements des pixels 
-        //et générer une image avec couleur grise 
-        //ça nous donne le resultat attendu car on recupere l'image chargé puis 
+        //parcours du canvas et traitements des pixels 
+        //et générer une image avec couleur grise
+        //ça nous donne le resultat attendu car on recupere l'image chargé puis
        //on fait le traitement dans la fonction function()
         for (var x = 0; x <imgData.width ; x++)
           for (var y = 0; y<imgData.height; y++) {

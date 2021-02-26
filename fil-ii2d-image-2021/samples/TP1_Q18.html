@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <script lang="js" src="../tools.js"></script>
+    <script lang="js" src="../filters/gray_filters.js"></script>
+    <script lang="js" src="../processing.js"></script>
+</head>
+
+<body>
+    <img src="../data/tambour.png" id="input" height="240" width="240"></img>
+    <canvas id="output" height="240" width="240"></canvas>
+
+    <script lang="javascript">
+        var _opt_options = { dist: 5};
+        var _task = new ToGrayExceptDisPointXY(_opt_options);
+        var _proc = new processing("input", _task, "output");
+        _proc.do_process();
+    </script>
+</body>
+
+</html>

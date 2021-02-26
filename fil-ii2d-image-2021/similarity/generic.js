@@ -7,6 +7,11 @@ var generic_similarity={}
 
   The similarity is measured using the similarity_metric_func that should be adapted with regard to descriptor_func.
 
+  == The lower the similarity_metric_func the more similar the images are.
+  == Indeed, the similarity_metric_func is a distance between descriptors.
+  == Similar descriptors will generate small distances and, hence, small
+  == similarity_metric_func values.
+
   opt_options contains :
     * optional opt_options.desc_opt_options parameters for the descriptor_func
     * optional opt_options.similarity_metric_opt_options parameters for similarity_metric_func
@@ -59,7 +64,7 @@ generic_similarity.SimilarityTask.prototype.process_descriptor=function(in_descr
   //
   for (var idx1 in order)
     for (var idx2 in order)
-      if (sim[order[idx1]]<sim[order[idx2]])
+      if ((idx1 < idx2) && (sim[order[idx1]]>sim[order[idx2]]))
         { aux=order[idx1]; order[idx1]=order[idx2]; order[idx2]=aux; }
 
   //BLOC4

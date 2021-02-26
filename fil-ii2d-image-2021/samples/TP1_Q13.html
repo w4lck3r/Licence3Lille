@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <script lang="js" src="../tools.js"></script>
+  <script lang="js" src="../features/plans.js"></script>
+  <script lang="js" src="../processing.js"></script>
+</head>
+
+<body>
+  <div id="image">
+    <video autoplay loop src="../data/surprise.mp4" id="input" height="240" width="240"></video>
+    <div id="output"></div>
+  </div>
+  <script lang="javascript">
+    var _output = document.getElementById("output");
+    var _opt_options = { seuil: 100};
+    var _task = new DetectionPlansTask(_opt_options);
+    var _proc = new processing("input", _task);
+    var loopp = function () {
+      _proc.do_process();
+      requestAnimationFrame(loopp);
+    }
+    loopp();
+  </script>
+</body>
+
+</html>

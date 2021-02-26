@@ -8,20 +8,20 @@
       //BLOC1
       //creer une video element on ajoute un evenement 'playing' sur la video
       // pour executer function() quand la video est lancé
-      var videoElt = document.getElementById("input");
+      let videoElt = document.getElementById("input");
       videoElt.addEventListener("playing",function() {
 
         //BLOC2
         //creer un canevas définis par la largeur/hauteur de la video.
         //redessiner la trame dans le canvas
-        var canvas = document.getElementById("output");
-        var ctx2d = canvas.getContext("2d");
+        let canvas = document.getElementById("output");
+        let ctx2d = canvas.getContext("2d");
         ctx2d.drawImage(videoElt, 0, 0, canvas.width, canvas.height);
 
         //BLOC3
         //récuperer les donnés d'image
-        var imgData = ctx2d.getImageData(canvas.width/4, canvas.height/4, canvas.width/2, canvas.height/2);
-        var pixels = imgData.data;
+        let imgData = ctx2d.getImageData(canvas.width/4, canvas.height/4, canvas.width/2, canvas.height/2);
+        let pixels = imgData.data;
 
         //BLOC4
         //parcourir les pixels et les traiter pour avoir 
@@ -31,11 +31,11 @@
         // cette version ne marche pas comme il faut car elle recupere et affiche une seule imagie avec 
         //effet gris vu qu'on pas utiliser de  requestAnimationFrame(loop);
 
-        for (var x = 0; x <imgData.width ; x++)
-          for (var y = 0; y<imgData.height; y++) {
-            var pos = (y * imgData.width + x)<<2;
-            var r = pixels[pos + 0], g = pixels[pos + 1], b = pixels[pos + 2], a = pixels[pos + 3];
-            var mean=(r+g+b)/3;
+        for (let x = 0; x <imgData.width ; x++)
+          for (let y = 0; y<imgData.height; y++) {
+            let pos = (y * imgData.width + x)<<2;
+            let r = pixels[pos + 0], g = pixels[pos + 1], b = pixels[pos + 2], a = pixels[pos + 3];
+            let mean=(r+g+b)/3;
             pixels[pos + 0] = mean;  pixels[pos + 1] = mean; pixels[pos + 2] = mean; pixels[pos + 3] = a;
           }
         ctx2d.putImageData(imgData,canvas.width/4, canvas.height/4);

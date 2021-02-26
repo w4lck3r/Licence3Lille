@@ -4,17 +4,17 @@
     <script type="text/javascript">
 
       //BLOC1
-      //on creer l'image copie 
+      //on cree l'image copie
       var imgElt = document.getElementById("input");
 
       //BLOC2
-      //on creer un canevas définis par la largeur/hauteur de l'image.
+      //on cree un canvas définis par la largeur/hauteur de l'image.
       var canvas = document.createElement("canvas");
       canvas.width = imgElt.width; canvas.height = imgElt.height;
       //document.body.append(canvas);
 
       //BLOC3
-      // on recupere le contexte graphique et on dessine 
+      // on recupere le contexte graphique et on dessine
       var ctx2d = canvas.getContext("2d");
       ctx2d.drawImage(imgElt, 0, 0, canvas.width, canvas.height);
 
