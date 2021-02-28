@@ -34,14 +34,21 @@ Question faite : regarder samples/tp1Q13.html
 et features/plan.js
 
 --Q14:
-Question faite : voir processing_samples/video_bandw.html
+Question faite : voir samples/video_bandw.html
 
 --Q15:
-Question faite :  voir processing_samples/TP1_Q15.html
+Question faite :  voir ssamples/TP1_Q15.html
 
---Q16: 
-=======
-Pas faite
+--Q16: Question faite :  voir ssamples/TP1_Q16.html
 
---Q14:
->>>>>>> b906e9129f4ea49935f7d6e029c876382e8fc9c7
+--Q17: Question faite :  voir ssamples/TP1_Q17.html
+
+--Q18: Question faite :  voir ssamples/TP1_Q18.html
+
+--Q19: Question faite :  voir ssamples/TP1_Q19.html 
+
+// rafraichir plusieur fois le cercle peut avoir un comportement verticale ou horizentale car les positions sont aléatoire
+
+--Q20: Question faite :  voir ssamples/TP1_20.html // fonctionne pas vraiment 
+
+

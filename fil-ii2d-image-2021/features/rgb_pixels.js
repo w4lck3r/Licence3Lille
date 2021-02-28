@@ -1,4 +1,4 @@
-var rgb_pixels_features={};
+let rgb_pixels_features={};
 
 /*
   rgb_pixels_features.mean_per_region
@@ -16,21 +16,21 @@ rgb_pixels_features.mean_per_region=function(imageData,opt_options) {
 
   //BLOC1
   //on parcours les pixels visibles et on retroune leurs moyenne 
-  var mean=[];
+  let mean=[];
   mean[0]=0; mean[1]=0; mean[2]=0;
-  var pos=0; var count=0;
-  for (var y=y0;y<y0+dy;y++)
-    for (var x=x0;x<x0+dx;x++) {
+  let pos=0; let count=0;
+  for (let y=y0;y<y0+dy;y++)
+    for (let x=x0;x<x0+dx;x++) {
       pos=(y*imageData.width+x)<<2;// décalage binaire de 2 ( * 2 )
       if (imageData.data[pos+3]>0) {
-        for (var i=0;i<3;i++) {
+        for (let i=0;i<3;i++) {
           mean[i]+=imageData.data[pos+i];
         }
         count++;
       }
     }
   if (count>0) {
-    for (var i=0;i<3;i++) {
+    for (let i=0;i<3;i++) {
       mean[i]=Math.round(mean[i]/count);
     }
     return mean;
@@ -53,10 +53,6 @@ rgb_pixels_features.mean=function(imageData,opt_options) {
   - returns a generic_features.grid_descriptor (grid.cells - array)
 */
 rgb_pixels_features.grid_mean=function(imageData, opt_options) {
-
-  console.log("construct grid mean rgb");
-  console.log(opt_options);
-
   return generic_features.grid_descriptor(imageData,
     rgb_pixels_features.mean_per_region,
     opt_options);
@@ -77,19 +73,19 @@ rgb_pixels_features.mean_per_region_afactor=function(imageData,opt_options) {
   dy=opt_options&&opt_options.dy?opt_options.dy:imageData.height;
 
 
-  var mean=[];
+  let mean=[];
   mean[0]=0; mean[1]=0; mean[2]=0;
-  var pos=0; var count=0;
-  for (var y=y0;y<y0+dy;y++)
-    for (var x=x0;x<x0+dx;x++) {
+  let pos=0; let count=0;
+  for (let y=y0;y<y0+dy;y++)
+    for (let x=x0;x<x0+dx;x++) {
       pos=(y*imageData.width+x)<<2;
-      for (var i=0;i<3;i++) {
+      for (let i=0;i<3;i++) {
         mean[i]+=(imageData.data[pos+i]*imageData.data[pos+3]);
       }
       count++;
     }
   if (count>0) {
-    for (var i=0;i<3;i++) {
+    for (let i=0;i<3;i++) {
       mean[i]=Math.round(mean[i]/count);
     }
     return mean;

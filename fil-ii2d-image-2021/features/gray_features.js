@@ -1,4 +1,4 @@
-var pixels_features={};
+let pixels_features={};
 
 /*
   pixels_features.mean_gray
@@ -14,8 +14,6 @@ pixels_features.mean_gray=function(imageData,opt_options) {
   - si opt_options manque partiellement,
       remplacer partiellement par les valeurs par défaut 0, 0, imageData.width, imageData.height
   - retourne undefined si aucun disponible
-
-
 */
 pixels_features.mean_gray_per_region=function(imageData,opt_options) {
   x0=opt_options&&opt_options.x0?opt_options.x0:0;
@@ -24,11 +22,11 @@ pixels_features.mean_gray_per_region=function(imageData,opt_options) {
   dy=opt_options&&opt_options.dy?opt_options.dy:imageData.height;
 
 
-  var mean=[];
+  let mean=[];
   mean[0]=0;
-  var pos=0; var count=0;
-  for (var y=y0;y<y0+dy;y++)
-    for (var x=x0;x<x0+dx;x++) {
+  let pos=0; let count=0;
+  for (let y=y0;y<y0+dy;y++)
+    for (let x=x0;x<x0+dx;x++) {
       pos=(y*imageData.width+x)<<2;
       if (imageData.data[pos+3]>0) {
         mean[0]+=Math.round((imageData.data[pos]+imageData.data[pos+1]+imageData.data[pos+2])/3);
