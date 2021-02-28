@@ -24,17 +24,17 @@
     //BLOC2
     //Définit les options et la tâche à effectuer. Ici la tâche de calcul de différence de mouvement.
     var _opt_options={width:320,height:180,threshold:50};
-    var _task2=new diff.DifferenceImageRGB(_opt_options);
+    var _task2=new diff.DifferenceImageGray(_opt_options);
     var _proc2=new processing2("output1",_task2,"output2");
 
     //BLOC3
     //Définit les options et la tâche à effectuer. Ici la tâche de calcul de différence de mouvement normalisée.
     var _opt_options={width:320,height:180,threshold:1};
-    var _task3=new diff.NormalizedDifferenceImageRGB(_opt_options);
+    var _task3=new diff.NormalizedDifferenceImageGray(_opt_options);
     var _proc3=new processing2("output1",_task3,"output3");
 
     //BLOC4
-    // Récupère les données de la première losrqu'elle chargée et la passe à la tâche 2.
+    // Récupère les données contenues dans la balise output lorsque la page est entierement chargée et la passe à la tâche 2.
     var img_elt=document.getElementById("input");
     img_elt.addEventListener("loadeddata",function(){
       _task2.set_first_frame_from_eltId("input");
@@ -47,7 +47,7 @@
       _task1.updateFocus();
 
       _proc2.do_process();
-      _proc3.do_process();
+     // _proc3.do_process();
 
       setTimeout(loop,200);
     }

@@ -5,13 +5,14 @@
 <script lang="js" src="../movement/difference.js"></script>
 <script lang="js" src="../effects/focus.js"></script>
 <script lang="js" src="../metrics/generic.js"></script>
-<script lang="js" src="../metrics/rgb_pixels_metrics.js"></script>
+<script lang="js" src="../metrics/pixels.js"></script>
 <script lang="js" src="../segmentation/blobs.js"></script>
 </head>
 <body>
 
   <img id="input" src="../data/rgb.png" width="50" height="50"></img>
-  <canvas id="output" width="50" height="50"></canvas>
+  <canvas id="output1" width="50" height="50"></canvas>
+  <canvas id="output2" width="50" height="50"></canvas>
 
   <br></br>
 
@@ -20,21 +21,37 @@
 
   <script lang="javascript">
     var process=function() {
-      var _opt_options={metric:rgb_pixels_metrics.edist_as_gray,threshold:10};
+      var _opt_options={metric:pixel_metrics.gray_rgb_edist,threshold:10};
       var _task1=new blobs.Pixel8ConnectivityBlobs(_opt_options);
-      var _proc1=new processing2("input",_task1,"output");
+      var _proc1=new processing2("input",_task1,"output1");
       _proc1.do_process();
-      var components_bbox=_proc1.get_result();
+      var components_bbox1=_proc1.get_result();
 
-
-      var cvs_ctxt=document.getElementById("output").getContext("2d");
-      console.log(components_bbox);
-      for (idx in components_bbox) {
-        cvs_ctxt.strokeStyle=[components_bbox[idx].mean[0],
-        components_bbox[idx].mean[1],components_bbox[idx].mean[2],255];
+      var cvs_ctxt=document.getElementById("output1").getContext("2d");
+      console.log(components_bbox1);
+      for (idx in components_bbox1) {
+        cvs_ctxt.strokeStyle=[components_bbox1[idx].mean[0],
+        components_bbox1[idx].mean[1],components_bbox1[idx].mean[2],255];
         cvs_ctxt.strokeRect(
-            components_bbox[idx].x, components_bbox[idx].y,
-            components_bbox[idx].width, components_bbox[idx].height,
+            components_bbox1[idx].x, components_bbox1[idx].y,
+            components_bbox1[idx].width, components_bbox1[idx].height,
+            );
+      }
+
+      //Question 3 Composants connexes 
+      var _task2=new blobs.Pixel4ConnectivityBlobs(_opt_options);
+      var _proc2=new processing2("input",_task2,"output2");
+      _proc2.do_process();
+      var components_bbox2=_proc2.get_result();
+
+      var cvs_ctxt2=document.getElementById("output2").getContext("2d");
+      console.log(components_bbox2);
+      for (idx in components_bbox2) {
+        cvs_ctxt2.strokeStyle=[components_bbox2[idx].mean[0],
+        components_bbox2[idx].mean[1],components_bbox2[idx].mean[2],255];
+        cvs_ctxt2.strokeRect(
+            components_bbox2[idx].x, components_bbox2[idx].y,
+            components_bbox2[idx].width, components_bbox2[idx].height,
             );
       }
     }

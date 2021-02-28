@@ -28,7 +28,7 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
   var in_width=in_imgData.width, in_height=in_imgData.height;
 
   //BLOC 1
-  //......
+  // on choisit un feature s'il y'a pas
   if (!this.bbox_feature) {
     var _opt_options=this.bbox;
     this.bbox_feature=this.per_region_feature_func(in_imgData,_opt_options);
@@ -36,12 +36,12 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
 
 
   //BLOC 2
-  //......
+  //la taille du carré de recherche
   this.pan_x=Math.round(this.window_width/2-this.bbox.dx/2);
   this.pan_y=Math.round(this.window_height/2-this.bbox.dy/2);
 
   //BLOC 3
-  //......
+  // position de depart du carré de recherche
   var x_start=(this.bbox.x0-this.pan_x)>0?(this.bbox.x0-this.pan_x):0;
   var y_start=(this.bbox.y0-this.pan_y)>0?(this.bbox.y0-this.pan_y):0;
   var x_end=(this.bbox.x0+this.bbox.dx+this.pan_x) < in_width?
@@ -56,7 +56,7 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
   var count_y=in_imgData.height;
 
   //BLOC 4
-  //......
+  //déssine la partie data image
   if (out_imgData) {
     Tools.copy_partial_imageData_into_imageData(in_imgData,
                 0,0,in_imgData.width,in_imgData.height,
@@ -65,7 +65,7 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
   }
 
   //BLOC 5
-  //......
+  //desinne ce que le carré de recherche a trouvé
   for (var y=y_start;y<y_end;y+=this.step_y) {
     var count_x=0;
     for (var x=x_start;x<x_end;x+=this.step_x) {
@@ -83,7 +83,7 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
      }
 
       //BLOC 6
-      //......
+      //la difference entre l'image et ce qu'il trouve
       var local_bbox_feature=this.per_region_feature_func(in_imgData,local_bbox);
       if (!local_bbox_feature) continue;
       var diff=this.metric_func(this.bbox_feature,local_bbox_feature);
@@ -99,7 +99,7 @@ appearance_tracking.MeanShift.prototype.process=function(in_imgData,out_imgData)
   }
 
   //BLOC 7
-  //......
+  //mise a jours du modele par rapport a ce qu'il a detecté
   if (min < this.threshold && this.bbox!=min_bbox) {
       this.count++;
       this.bbox=min_bbox;

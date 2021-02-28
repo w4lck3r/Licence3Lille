@@ -5,7 +5,7 @@
 <script lang="js" src="../movement/difference.js"></script>
 <script lang="js" src="../effects/focus.js"></script>
 <script lang="js" src="../metrics/generic.js"></script>
-<script lang="js" src="../metrics/rgb_pixels_metrics.js"></script>
+<script lang="js" src="../metrics/pixels.js"></script>
 <script lang="js" src="../effects/generic.js"></script>
 <script lang="js" src="../effects/morpho.js"></script>
 <script lang="js" src="../filters/morpho.js"></script>
@@ -39,7 +39,7 @@
     var _task3=new morpho_effects.DilatationErosionWindow(_opt_options);
     var _proc3=new processing2("output2",_task3,"output3");
 
-    var _opt_options={metric:rgb_pixels_metrics.edist_as_bw,threshold:0};
+    var _opt_options={metric:pixel_metrics.visible_edist,threshold:0};
     var _task4=new blobs.Pixel8ConnectivityBlobs(_opt_options);
     var _proc4=new processing2("output3",_task4,"output4");
 

@@ -20,25 +20,25 @@
   <script lang="javascript">
 
     //BLOC1
-    //...
+    //Définit les options et la tâche à effectuer. Ici l'animation MovingCircle fait bouger un cercle de couleur sur l'image donnée.
     var _opt_options={
       x0:40,y0:40,radius:40,step_x:10,step_y:10,random:true,
     };
     var _task1=new animations.MovingCircle("input",_opt_options);
 
     //BLOC2
-    //...
+    //Définit les options et la seconde tâche à effectuer. Ici le calcul de différence de mouvement.
     var _opt_options={width:300,height:200,threshold:1};
     var _task2=new diff.NormalizedDifferenceImageRGB(_opt_options);
     var _proc2=new processing2("input",_task2,"output");
 
     //BLOC3
-    //....
+    //Lance la tâche MovingCircle et donne la première image à la tâche 2 pour effctuer son calcul.
     _task1.draw();
     _task2.set_first_frame_from_eltId("input");
 
     //BLOC4
-    //...
+    //Calcule l'animation de la tache 1 et lance la tâche 2 qui produit la seconde image. 
     var loop=function() {
       _task1.animate();
       _proc2.do_process();

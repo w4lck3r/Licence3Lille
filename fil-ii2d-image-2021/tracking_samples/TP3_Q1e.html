@@ -2,14 +2,12 @@
 <head>
 <script lang="js" src="../tools.js"></script>
 <script lang="js" src="../processing2.js"></script>
-<script lang="js" src="../movement/difference.js"></script>
-<script lang="js" src="../effects/focus.js"></script>
 <script lang="js" src="../features/generic.js"></script>
 <script lang="js" src="../features/pixels.js"></script>
 <script lang="js" src="../metrics/generic.js"></script>
 <script lang="js" src="../metrics/pixels.js"></script>
 <script lang="js" src="../animation/moving_circle.js"></script>
-<script lang="js" src="../tracking/appearance.js"></script>
+<script lang="js" src="../tracking/circle.js"></script>
 </head>
 <body> <!--style="background-color:black;" -->
 
@@ -18,25 +16,27 @@
 
 
   <script lang="javascript">
+    // Initialisation des options et création du cercle en mouvement.
     var _opt_options={x0:10,y0:10,radius:10,step_x:2,step_y:2,random:true,fillStyle:"red"};
     var _task1=new animations.MovingCircle("input",_opt_options);
 
-    var _bbox={x0:0,y0:0,dx:20,dy:20};
+    var _bbox={x0:0,y0:0,dx:20,dy:20,r:20};
 
+    // Initialisation des options de tracking et du tracking
     var _tracking_options={
       window_width:40,
       window_height:40,
       step_x:3,
-      step_y:3
+      step_y:3,
     };
 
-    var _task2=new appearance_tracking.MeanShift(_bbox,
-      pixels_features.mean_rgb_afactor_per_circle,
-      pixel_metrics.pixel_edist,_tracking_options);
+    var _task2=new circle_tracking.MeanShift(_bbox,
+      pixels_features.mean_rgb_afactor_per_region_circle,
+      pixel_metrics.rgb_edist,_tracking_options);
 
     var _proc2=new processing2("input",_task2,"output2");
 
-
+    // Relance en boucle le dessin de l'objet en mouvement et le tracking de l'objet en ajoutant un timeout pour mieux constater le suivi.
     var count=0;
     _task1.draw();
     var loop=function() {
